@@ -5,16 +5,28 @@ namespace Backend.Models.Entities
 {
     public class ProductEntity
     {
-        [Key]
-        public string SKU { get; set; } = null!;
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = null!;
         [Column(TypeName = "Money")]
         public decimal Price { get; set; }
-        public int CategoryId { get; set; }
-        public int DescriptionId { get; set; }
-        public int ImageId { get; set; }
-        public ImageEntity Image { get; set; } = null!;
-        public ProductCategoryEntity Category { get; set; } = null!;
-        public ProductDescriptionEntity Description { get; set; } = null!;
+        public string CategoryName { get; set; } = null!;
+        public string? Description { get; set; }
+        public string PartitionKey { get; set; } = "Product";
+
+
+        public static implicit operator ProductModel(ProductEntity entity)
+        {
+            return new ProductModel
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price,
+                CategoryName = entity.CategoryName,
+                Description = entity.Description,
+
+                
+            };
+        }
+
     }
 }

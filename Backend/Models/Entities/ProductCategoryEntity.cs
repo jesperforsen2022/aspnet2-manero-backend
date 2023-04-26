@@ -3,6 +3,7 @@
     public class ProductCategoryEntity
     {
         public int Id { get; set; }
-        public string Category { get; set; } = string.Empty;
+        public string CategoryName { get; set; } = null!;
+        public ICollection<ProductEntity> Products { get; set; } = new List<ProductEntity>();
     }
 }
