@@ -25,7 +25,7 @@ namespace Backend.Controllers
             _nosql.ProductsCatalog.Add(productEntity);
             await _nosql.SaveChangesAsync();
 
-            ProductModel _product = productEntity;
+            Product _product = productEntity;
 
             return Ok(_product);
         }

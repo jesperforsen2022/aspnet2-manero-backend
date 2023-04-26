@@ -5,9 +5,12 @@ namespace Backend.Models
     public class ProductRequest
     {
         public string Name { get; set; } = null!;
-        public string CategoryName { get; set; } = null!;
+        public string Category { get; set; } = null!;
         public string? Description { get; set; } = null!;
         public decimal Price { get; set; }
+        public string? ProductId { get; set; }
+        public string? ImageName { get; set; }
+
 
         public static implicit operator ProductEntity(ProductRequest entity)
         {
@@ -15,10 +18,9 @@ namespace Backend.Models
             {
                 Name = entity.Name,
                 Price = entity.Price,
-                CategoryName = entity.CategoryName,
+                Category = entity.Category,
                 Description = entity.Description,
-
-
+                ImageName = entity.ImageName
             };
         }
     }
