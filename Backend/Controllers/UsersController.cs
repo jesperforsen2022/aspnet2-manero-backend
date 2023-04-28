@@ -7,5 +7,6 @@ namespace Backend.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        
     }
 }
