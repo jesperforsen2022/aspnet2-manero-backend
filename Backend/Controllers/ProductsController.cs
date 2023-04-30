@@ -30,12 +30,13 @@ namespace Backend.Controllers
             return Ok(_product);
         }
 
-        [HttpGet]
+        [HttpGet("{tag}/{take}")]
 
-        public async Task <IActionResult> GetAll()
+        public async Task <IActionResult> GetAll(string tag, int take)
         {
-            var products = await _nosql.ProductsCatalog.ToListAsync();
-            return Ok(products);
+            var products = await _nosql.ProductsCatalog.Take(take).ToListAsync();
+            var filteredProducts = products.Where(x => x.Tags.Contains(tag)).ToList();
+            return Ok(filteredProducts);
         }
     }
 }

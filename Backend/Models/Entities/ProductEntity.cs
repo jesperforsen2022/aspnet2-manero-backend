@@ -13,6 +13,7 @@ namespace Backend.Models.Entities
         public string? Description { get; set; }
         public string? Specification { get; set; }
         public string? ImageName { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
 
 
         public static implicit operator Product(ProductEntity entity)
@@ -24,7 +25,8 @@ namespace Backend.Models.Entities
                 Price = entity.Price,
                 Category = entity.Category,
                 Description = entity.Description,
-                ImageName = entity.ImageName
+                ImageName = entity.ImageName,
+                Tags = entity.Tags
             };
         }
 

@@ -9,6 +9,6 @@
         public string Category { get; set; } = null!;
         public string? Description { get; set; }
         public string? ImageName { get; set; } = null!;
-
+        public List<string> Tags { get; set; } = new List<string>();
     }
 }
