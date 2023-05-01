@@ -10,6 +10,8 @@ namespace Backend.Models
         public decimal Price { get; set; }
         public string? ProductId { get; set; }
         public string? ImageName { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
+
 
 
         public static implicit operator ProductEntity(ProductRequest entity)
@@ -20,7 +22,8 @@ namespace Backend.Models
                 Price = entity.Price,
                 Category = entity.Category,
                 Description = entity.Description,
-                ImageName = entity.ImageName
+                ImageName = entity.ImageName,
+                Tags = entity.Tags,
             };
         }
     }
