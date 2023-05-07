@@ -9,7 +9,9 @@ builder.Services.AddDbContext<NoSqlContext>(x => x.UseCosmos(builder.Configurati
 builder.Services.AddDbContext<SqlContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Sql")));
 
 
+
 var app = builder.Build();
+app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
