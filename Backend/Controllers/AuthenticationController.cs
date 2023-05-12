@@ -1,6 +1,6 @@
 ﻿using Backend.Contexts;
 using Backend.Models;
-using Backend.Models.Entities;
+using Backend.Models.Entities.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.OleDb;
@@ -18,25 +18,6 @@ namespace Backend.Controllers
             _sql = sql;
         }
 
-        [HttpPost("signup")]
-        public async Task<IActionResult> SignUp(SignUp form)
-        {
-            UserEntity userEntity = form;
 
-            _sql.Users.Add(userEntity);
-
-            try
-            {
-                await _sql.SaveChangesAsync();
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-
-
-        }
     }
 }

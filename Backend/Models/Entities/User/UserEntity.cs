@@ -1,16 +1,23 @@
-﻿using System.Security.Cryptography;
+﻿using Backend.Interfaces;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace Backend.Models.Entities
+namespace Backend.Models.Entities.User
 {
-    public class UserEntity
+    public class UserEntity : IUser
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
+        public Guid RoleId { get; set; }
+        public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public byte[] Password { get; private set; } = null!; 
+        public string? PhoneNumber { get; set; }
+        public string? ImageSrc { get; set; }
+
+        public ICollection <CreditCardEntity>? CreditCards { get; set; }
+        public RoleEntity Roles { get; set; } = null!;
+        public ICollection<UserAddressEntity>? UserAddress { get; set; }
+        public byte[] Password { get; private set; } = null!;
         public byte[] SecurityKey { get; private set; } = null!;
-        public Guid ProfileId { get; set; }
-        public UserProfileEntity Profile { get; set; } = null!;
 
         public void SetSecurePassword(string password)
         {
@@ -21,7 +28,7 @@ namespace Backend.Models.Entities
 
         public bool ValidateSecurePassword(string password)
         {
-            using var hmac= new HMACSHA512(SecurityKey);
+            using var hmac = new HMACSHA512(SecurityKey);
             var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
 
             for (int i = 0; i < hash.Length; i++)
