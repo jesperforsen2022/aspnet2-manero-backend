@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitUser : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,6 @@ namespace Backend.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageSrc = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RolesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     SecurityKey = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
@@ -56,8 +55,8 @@ namespace Backend.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RolesId",
-                        column: x => x.RolesId,
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -121,9 +120,9 @@ namespace Backend.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_RolesId",
+                name: "IX_Users_RoleId",
                 table: "Users",
-                column: "RolesId");
+                column: "RoleId");
         }
 
         /// <inheritdoc />

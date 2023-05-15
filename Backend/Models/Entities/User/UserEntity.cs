@@ -14,7 +14,7 @@ namespace Backend.Models.Entities.User
         public string? ImageSrc { get; set; }
 
         public ICollection <CreditCardEntity>? CreditCards { get; set; }
-        public RoleEntity Roles { get; set; } = null!;
+        public RoleEntity Role { get; set; } = null!;
         public ICollection<UserAddressEntity>? UserAddress { get; set; }
         public byte[] Password { get; private set; } = null!;
         public byte[] SecurityKey { get; private set; } = null!;

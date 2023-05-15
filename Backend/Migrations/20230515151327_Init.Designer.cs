@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20230512121900_Init User")]
-    partial class InitUser
+    [Migration("20230515151327_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,16 +142,13 @@ namespace Backend.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<byte[]>("SecurityKey")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -188,13 +185,13 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Entities.User.UserEntity", b =>
                 {
-                    b.HasOne("Backend.Models.Entities.User.RoleEntity", "Roles")
+                    b.HasOne("Backend.Models.Entities.User.RoleEntity", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Roles");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Backend.Models.Entities.User.AddressEntity", b =>

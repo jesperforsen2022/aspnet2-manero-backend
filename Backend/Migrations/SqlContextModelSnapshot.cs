@@ -139,16 +139,13 @@ namespace Backend.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<byte[]>("SecurityKey")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -185,13 +182,13 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Entities.User.UserEntity", b =>
                 {
-                    b.HasOne("Backend.Models.Entities.User.RoleEntity", "Roles")
+                    b.HasOne("Backend.Models.Entities.User.RoleEntity", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Roles");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Backend.Models.Entities.User.AddressEntity", b =>
