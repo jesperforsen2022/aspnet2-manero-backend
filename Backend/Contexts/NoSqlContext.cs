@@ -17,7 +17,7 @@ namespace Backend.Contexts
                 .ToContainer("productCatalog")
                 .HasPartitionKey(x => x.Id);
 
-            modelBuilder.Entity<ProductEntity>()
+            modelBuilder.Entity<OrderEntity>()
                 .ToContainer("orders")
                 .HasPartitionKey(x => x.Id);
         }
