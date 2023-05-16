@@ -58,6 +58,17 @@ public abstract class GeneralRepository<TEntity> where TEntity : class
         return false;
     }
 
+    public virtual async Task<bool> RemoveRangeAsync(TEntity entity)
+    {
+        if(entity != null)
+        {
+            _context.Set<TEntity>().RemoveRange(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        return false;
+    }
+
     public virtual async Task UpdateAsync(TEntity entity)
     {
         _context.Entry(entity).State = EntityState.Modified;

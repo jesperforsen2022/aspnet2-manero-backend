@@ -17,6 +17,7 @@ public class AddressEntity : IAddress
     {
         return new AddressModel
         {
+            AddressId = entity.Id,
             Title = entity.Title,
             StreetName = entity.StreetName,
             PostalCode = entity.PostalCode,

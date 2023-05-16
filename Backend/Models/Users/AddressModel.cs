@@ -4,6 +4,7 @@ namespace Backend.Models.Users
 {
     public class AddressModel
     {
+        public Guid AddressId { get; set; }
         public string Title { get; set; } = null!;
   
         public string StreetName { get; set; } = null!;

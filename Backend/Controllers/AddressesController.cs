@@ -44,22 +44,5 @@ namespace Backend.Controllers
             return BadRequest("Invalid address data");
         }
 
-        [HttpPut("editaddress")]
-        public async Task<IActionResult> EditAddress(AddressModel model, Guid id)
-        {
-            if (ModelState.IsValid)
-            {
-                var address = await _addressService.GetAddress(id);
-                if (await _addressService.UpdateAddressAsync(address, model))
-                {
-                    return Ok("Address updated");
-                }
-                else
-                {
-                    return BadRequest("Couldnt update address");
-                }
-            }
-            return BadRequest();
-        }
     }
 }
