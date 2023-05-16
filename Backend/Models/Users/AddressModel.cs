@@ -12,15 +12,5 @@ namespace Backend.Models.Users
         
         public string City { get; set; } = null!;
 
-        public static implicit operator AddressEntity(AddressModel model)
-        {
-            return new AddressEntity
-            {
-                Title = model.Title,
-                StreetName = model.StreetName,
-                PostalCode = model.PostalCode,
-                City = model.City,
-            };
-        }
     }
 }

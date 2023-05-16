@@ -35,5 +35,22 @@ namespace Backend.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("addresses")]
+        public async Task<IActionResult> GetAllAddresses()
+        {
+            var user = await _userService.GetUserFromToken(User);
+            if(user == null)
+            {
+                return Unauthorized();
+            }
+
+            var addresses = await _userService.GetAllAddressesForUser(user);
+            if(addresses == null || !addresses.Any())
+            {
+                return NotFound("No addreses found for the user");
+            }
+            return Ok(addresses);
+        }
     }
 }

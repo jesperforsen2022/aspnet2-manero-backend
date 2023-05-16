@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Backend.Models.Users;
 
 namespace Backend.Models.Entities.User;
 
@@ -11,5 +12,16 @@ public class AddressEntity : IAddress
     public string City { get; set; } = null!;
 
     public ICollection<UserAddressEntity>? UserAddress { get; set; }
+
+    public static implicit operator AddressModel(AddressEntity entity)
+    {
+        return new AddressModel
+        {
+            Title = entity.Title,
+            StreetName = entity.StreetName,
+            PostalCode = entity.PostalCode,
+            City = entity.City,
+        };
+    }
 
 }

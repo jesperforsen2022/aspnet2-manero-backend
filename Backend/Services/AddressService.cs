@@ -91,15 +91,4 @@ public class AddressService
         return address;
     }
 
-    //public async Task<IEnumerable<AddressModel>> GetAddressesAsync(UserEntity user)
-    //{
-    //    var userAddresses = _userAddressRepo.GetAllAsync(x => x.UserId == user.Id);
-    //    var addresses = new List<AddressModel>();   
-
-    //    foreach(var userAddress in userAddresses)
-    //    {
-    //        var address = await _addressRepo.GetAsync(x => x.Id == userAddress);
-    //    }
-        
-    //}
 }
