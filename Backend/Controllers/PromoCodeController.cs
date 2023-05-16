@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Backend.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -7,10 +8,24 @@ namespace Backend.Controllers
     [ApiController]
     public class PromoCodeController : ControllerBase
     {
+        private readonly PromoCodeService _promoCodeService;
+
+        public PromoCodeController(PromoCodeService promoCodeService)
+        {
+            _promoCodeService = promoCodeService;
+        }
+
         // [HttpGet]
         // GettAll
 
-        // [HttpPost]
+        [HttpPost("generate")]
+        public IActionResult GeneratePromoCode()
+        {
+            var promoCode = _promoCodeService.GeneratePromoCode();
+
+            return Ok (promoCode);
+        }
+
 
         // [HttpDelete]
     }
