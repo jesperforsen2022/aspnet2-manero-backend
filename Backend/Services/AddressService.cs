@@ -1,4 +1,5 @@
-﻿using Backend.Models.Entities.User;
+﻿using Backend.Models;
+using Backend.Models.Entities.User;
 using Backend.Models.Users;
 using Backend.Repositories.Users;
 using System.Linq.Expressions;
@@ -69,4 +70,36 @@ public class AddressService
         }
         
     }
+    public async Task<bool> UpdateAddressAsync(AddressEntity address, AddressModel model)
+    {
+        if (address != null)
+        {
+            address.Title = model.Title;
+            address.StreetName = model.StreetName;
+            address.PostalCode = model.PostalCode;
+            address.City = model.City;
+
+            await _addressRepo.UpdateAsync(address);
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<AddressEntity> GetAddress(Guid id)
+    {
+        var address = await _addressRepo.GetAsync(x => x.Id == id);
+        return address;
+    }
+
+    //public async Task<IEnumerable<AddressModel>> GetAddressesAsync(UserEntity user)
+    //{
+    //    var userAddresses = _userAddressRepo.GetAllAsync(x => x.UserId == user.Id);
+    //    var addresses = new List<AddressModel>();   
+
+    //    foreach(var userAddress in userAddresses)
+    //    {
+    //        var address = await _addressRepo.GetAsync(x => x.Id == userAddress);
+    //    }
+        
+    //}
 }

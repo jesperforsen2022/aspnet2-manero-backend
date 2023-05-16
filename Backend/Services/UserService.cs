@@ -1,4 +1,5 @@
-﻿using Backend.Models.Entities.User;
+﻿using Backend.Models;
+using Backend.Models.Entities.User;
 using Backend.Repositories.Users;
 using System.Linq.Expressions;
 using System.Security.Claims;
@@ -107,6 +108,20 @@ namespace Backend.Services
                 }
             }
             return null!;
+        }
+
+        public async Task<bool> UpdateProfileAsync(UserEntity user, UserProfileModel model)
+        {
+            if(user != null)
+            {
+                user.Name = model.Name;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+
+                await _userRepo.UpdateAsync(user);
+                return true;
+            }
+            return false;
         }
     }
 }
