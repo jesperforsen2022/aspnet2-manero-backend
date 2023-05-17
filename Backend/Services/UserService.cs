@@ -13,13 +13,15 @@ namespace Backend.Services
         private readonly RoleRepositoty _roleRepo;
         private readonly UserAddressRepository _userAddressRepo;
         private readonly AddressRepositoy _addressRepo;
+        private readonly CreditCardRepository _creditCardRepository;
 
-        public UserService(UserRepositoy userRepo, RoleRepositoty roleRepo, UserAddressRepository userAddressRepo, AddressRepositoy addressRepo)
+        public UserService(UserRepositoy userRepo, RoleRepositoty roleRepo, UserAddressRepository userAddressRepo, AddressRepositoy addressRepo, CreditCardRepository creditCardRepository)
         {
             _userRepo = userRepo;
             _roleRepo = roleRepo;
             _userAddressRepo = userAddressRepo;
             _addressRepo = addressRepo;
+            _creditCardRepository = creditCardRepository;
         }
 
         public async Task<UserEntity> GetUserFromToken(ClaimsPrincipal userClaims)
@@ -149,6 +151,30 @@ namespace Backend.Services
 
             }
             return new List<AddressModel>();
+
+        }
+
+        public async Task<List<CreditCardModel>> GetAllCreditCardsForUser(UserEntity user)
+        {
+            if (user != null)
+            {
+                var creditCardModels = new List<CreditCardModel>();
+                
+
+                var creditCardEntities = await _creditCardRepository.GetAllAsync(x => x.UserId == user.Id);
+                foreach(var creditCardEntity in creditCardEntities)
+                {
+                    if (creditCardEntity != null)
+                    {
+                        CreditCardModel creditCardModel = creditCardEntity;
+                        creditCardModels.Add(creditCardModel);
+                    }
+                }
+                
+                return creditCardModels;
+
+            }
+            return new List<CreditCardModel>();
 
         }
 

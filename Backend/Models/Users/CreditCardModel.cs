@@ -2,6 +2,7 @@
 {
     public class CreditCardModel
     {
+        public Guid CreditCardId { get; set; }
         public string CardName { get; set; } = null!;
         public string CardNumber { get; set; } = null!;
         public int ExpireMonth { get; set; }
