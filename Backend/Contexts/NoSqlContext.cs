@@ -11,6 +11,7 @@ namespace Backend.Contexts
 
         public DbSet<ProductEntity> ProductsCatalog { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<PromoCodeEntity> PromoCode { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductEntity>()
@@ -19,6 +20,10 @@ namespace Backend.Contexts
 
             modelBuilder.Entity<OrderEntity>()
                 .ToContainer("orders")
+                .HasPartitionKey(x => x.Id);
+
+            modelBuilder.Entity<PromoCodeEntity>()
+                .ToContainer("promoCode")
                 .HasPartitionKey(x => x.Id);
         }
     }
