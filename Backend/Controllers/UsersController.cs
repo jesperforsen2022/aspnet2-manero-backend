@@ -54,6 +54,23 @@ namespace Backend.Controllers
             return Ok(addresses);
         }
 
+        [HttpGet("creditcards")]
+        public async Task<IActionResult> GetAllCreditCards()
+        {
+            var user = await _userService.GetUserFromToken(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var creditCards = await _userService.GetAllCreditCardsForUser(user);
+            if (creditCards == null || !creditCards.Any())
+            {
+                return NotFound("No creditcards found for the user");
+            }
+            return Ok(creditCards);
+        }
+
         [HttpPut("updateaddress/{addressId}")] 
         public async Task<IActionResult> UpdateAddress(Guid addressId, AddressModel newAddress) 
         {
