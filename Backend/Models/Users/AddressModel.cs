@@ -4,6 +4,7 @@ namespace Backend.Models.Users
 {
     public class AddressModel
     {
+        public Guid AddressId { get; set; }
         public string Title { get; set; } = null!;
   
         public string StreetName { get; set; } = null!;
@@ -12,15 +13,5 @@ namespace Backend.Models.Users
         
         public string City { get; set; } = null!;
 
-        public static implicit operator AddressEntity(AddressModel model)
-        {
-            return new AddressEntity
-            {
-                Title = model.Title,
-                StreetName = model.StreetName,
-                PostalCode = model.PostalCode,
-                City = model.City,
-            };
-        }
     }
 }

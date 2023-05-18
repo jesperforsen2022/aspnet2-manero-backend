@@ -9,11 +9,11 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrederController : ControllerBase
+    public class OrderController : ControllerBase
     {
         private readonly NoSqlContext _nosql;
 
-        public OrederController(NoSqlContext nosql)
+        public OrderController(NoSqlContext nosql)
         {
             _nosql = nosql;
         }

@@ -15,7 +15,7 @@ namespace Backend.Controllers
         //private readonly PromoCodeService _promoCodeService;
         private readonly NoSqlContext _nosql;
 
-        public PromoCodeController(NoSqlContext nosql)
+        public PromoCodeController( NoSqlContext nosql)
         {
             //_promoCodeService = promoCodeService;
             _nosql = nosql;
