@@ -11,6 +11,7 @@ namespace Backend.Contexts
 
         public DbSet<ProductEntity> ProductsCatalog { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<PromoCodeEntity> PromoCodes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductEntity>()
