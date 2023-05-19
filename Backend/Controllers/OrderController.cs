@@ -70,10 +70,9 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(OrderEntity order)
         {
-            OrderEntity orderEntity = order;
-            _nosql.Orders.Add(orderEntity);
+            _nosql.Orders.Add(order);
             await _nosql.SaveChangesAsync();
-            return Ok(orderEntity);
+            return Ok();
         }
 
     }
