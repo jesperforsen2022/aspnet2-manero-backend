@@ -9,6 +9,8 @@
         public List<ProductEntity> Products { get; set; } = new List<ProductEntity>();
         public string? OrderStatus { get; set; }
         public string PaymentMethod { get; set; } = null!;
+        public string? Comment { get; set; }
+        public string Delivery { get; set; } = null!;
         public List<PromoCodeEntity> PromoCodes { get; set; } = new List<PromoCodeEntity>();
     }
 }

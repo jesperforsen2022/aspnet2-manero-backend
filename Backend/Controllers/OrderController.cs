@@ -32,6 +32,8 @@ namespace Backend.Controllers
                     Products = order.Products,
                     OrderStatus = order.OrderStatus,
                     PaymentMethod = order.PaymentMethod,
+                    Comment = order.Comment,
+                    Delivery = order.Delivery,
                     PromoCodes = order.PromoCodes
                 });
             return Ok(orders);
@@ -55,6 +57,8 @@ namespace Backend.Controllers
                         Products = order.Products,
                         OrderStatus = order.OrderStatus,
                         PaymentMethod = order.PaymentMethod,
+                        Comment = order.Comment,
+                        Delivery = order.Delivery,
                         PromoCodes = order.PromoCodes
                     });
                 }
