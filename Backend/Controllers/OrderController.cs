@@ -68,9 +68,22 @@ namespace Backend.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(OrderEntity order)
+        public async Task<IActionResult> Create(OrderModel order)
         {
-            _nosql.Orders.Add(order);
+            OrderEntity orderEntity = new OrderEntity
+            {
+                Id = Guid.NewGuid(),
+                Price = order.Price,
+                Date = order.Date,
+                Profile = order.Profile,
+                Products = order.Products,
+                OrderStatus = order.OrderStatus,
+                PaymentMethod = order.PaymentMethod,
+                Comment = order.Comment,
+                Delivery = order.Delivery,
+                PromoCodes = order.PromoCodes
+            };
+            _nosql.Orders.Add(orderEntity);
             await _nosql.SaveChangesAsync();
             return Ok();
         }
