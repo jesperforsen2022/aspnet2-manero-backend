@@ -12,13 +12,13 @@ namespace Backend.Controllers
     [ApiController]
     public class PromoCodeController : ControllerBase
     {
-        //private readonly PromoCodeService _promoCodeService;
+        private readonly PromoCodeService _promoCodeService;
         private readonly NoSqlContext _nosql;
 
-        public PromoCodeController( NoSqlContext nosql)
+        public PromoCodeController(NoSqlContext nosql, PromoCodeService promoCodeService)
         {
-            //_promoCodeService = promoCodeService;
             _nosql = nosql;
+            _promoCodeService = promoCodeService;
         }
 
         [HttpGet]
@@ -36,6 +36,28 @@ namespace Backend.Controllers
             //return new OkObjectResult(promoCodes);
             return Ok(promoCodes);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] PromoCodeEntity entity)
+        {
+            var promoCode = await _promoCodeService.CreatePromoCodeAsync(entity.Name, entity.Discount, entity.ExpiryDate);
+
+            // Måste testas
+            return Ok(promoCode);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _promoCodeService.DeletePromoCodeAsync(id);
+
+            // Måste testas
+            return Ok();
+        }
+
+
+
         /*
             [HttpPost("generate")]
         public IActionResult GeneratePromoCode()
