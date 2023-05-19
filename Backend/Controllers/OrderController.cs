@@ -70,7 +70,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(OrderModel order)
         {
-            OrderEntity orderEntity = new OrderEntity
+            OrderEntity orderEntity = new ()
             {
                 Id = Guid.NewGuid(),
                 Price = order.Price,
