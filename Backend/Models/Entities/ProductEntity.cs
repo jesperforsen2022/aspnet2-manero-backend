@@ -13,6 +13,11 @@ namespace Backend.Models.Entities
         public string? Description { get; set; }
         public string? Specification { get; set; }
         public string? ImageName { get; set; }
+        public string? Color { get; set; }
+        public string? Gender { get; set; }
+
+        public List<string> Size { get; set; } = new List<string>();
+
         public List<string> Tags { get; set; } = new List<string>();
 
 
@@ -26,6 +31,9 @@ namespace Backend.Models.Entities
                 Category = entity.Category,
                 Description = entity.Description,
                 ImageName = entity.ImageName,
+                Color = entity.Color,
+                Gender = entity.Gender,
+                Size = entity.Size,
                 Tags = entity.Tags
             };
         }
