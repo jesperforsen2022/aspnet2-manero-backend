@@ -1,9 +1,6 @@
-﻿using Backend.Contexts;
-using Backend.Models;
-using Backend.Models.Entities;
+﻿using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -12,36 +9,26 @@ namespace Backend.Controllers
     public class PromoCodeController : ControllerBase
     {
         private readonly PromoCodeService _promoCodeService;
-        private readonly NoSqlContext _nosql;
 
-        public PromoCodeController(NoSqlContext nosql, PromoCodeService promoCodeService)
+        public PromoCodeController(PromoCodeService promoCodeService)
         {
-            _nosql = nosql;
             _promoCodeService = promoCodeService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var promoCodes = new List<PromoCodeEntity>();
-            foreach (var promoCode in await _nosql.PromoCode.ToListAsync())
-                promoCodes.Add(new PromoCodeEntity
-                {
-                    Id = promoCode.Id,
-                    Name = promoCode.Name,
-                    Discount = promoCode.Discount,
-                    ExpiryDate = promoCode.ExpiryDate
-                });
-            //return new OkObjectResult(promoCodes);
-            return Ok(promoCodes);
+            var list = await _promoCodeService.GetAllPromoCodesAsync();
+
+            return Ok(list);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PromoCodeEntity entity)
+        public async Task<IActionResult> Create(PromoCodeModel promocode)
         {
-            var promoCode = await _promoCodeService.CreatePromoCodeAsync(entity.Name, entity.Discount, entity.ExpiryDate);
 
-            // Måste testas
+            var promoCode = await _promoCodeService.CreatePromoCodeAsync(promocode);
+
             return Ok(promoCode);
         }
 
@@ -51,22 +38,7 @@ namespace Backend.Controllers
         {
             await _promoCodeService.DeletePromoCodeAsync(id);
 
-            // Måste testas
             return Ok();
         }
-
-
-
-        /*
-            [HttpPost("generate")]
-        public IActionResult GeneratePromoCode()
-        {
-            var promoCode = _promoCodeService.GeneratePromoCode();
-
-            return Ok (promoCode);
-        }
-        */
-
-        // [HttpDelete]
     }
 }
