@@ -21,9 +21,9 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var orders = new List<OrderEntity>();
+            var orders = new List<OrderModel>();
             foreach (var order in await _nosql.Orders.ToListAsync())
-                orders.Add(new OrderEntity
+                orders.Add(new OrderModel
                 {
                     Id = order.Id,
                     Price = order.Price,
@@ -42,13 +42,13 @@ namespace Backend.Controllers
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
         {
-            var ordersOfUser = new List<OrderEntity>();
+            var ordersOfUser = new List<OrderModel>();
 
             foreach (var order in await _nosql.Orders.ToListAsync()) 
             { 
                 if (order.Profile.Email == email) 
                 {
-                    ordersOfUser.Add(new OrderEntity
+                    ordersOfUser.Add(new OrderModel
                     {
                         Id = order.Id,
                         Price = order.Price,
