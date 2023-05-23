@@ -9,6 +9,9 @@
         public string Category { get; set; } = null!;
         public string? Description { get; set; }
         public string? ImageName { get; set; } = null!;
+        public string? Color { get; set; }
+        public string? Gender { get; set; }
+        public List<string> Size { get; set; } = new List<string>();
         public List<string> Tags { get; set; } = new List<string>();
     }
 }

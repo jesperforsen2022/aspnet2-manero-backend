@@ -1,36 +1,59 @@
-﻿using Backend.Interfaces.PromoCode;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Backend.Contexts;
+using Backend.Models;
 using Backend.Models.Entities;
+
 
 namespace Backend.Services
 {
-    public class PromoCodeService : IPromoCodeService
+    public class PromoCodeService 
     {
-        private readonly IPromoCodeFactory _promoCodeFactory;
-        private List<PromoCodeEntity> _promoCodes = new List<PromoCodeEntity>();
+        private readonly NoSqlContext _nosql;
 
-        public PromoCodeService(IPromoCodeFactory promoCodeFactory)
+        public PromoCodeService(NoSqlContext nosql)
         {
-            _promoCodeFactory = promoCodeFactory;
+            _nosql = nosql;
         }
 
-        public async Task<PromoCodeEntity> CreatePromoCodeAsync(string name, decimal discount, DateTime expiryDate)
+        public async Task<PromoCodeEntity> CreatePromoCodeAsync(PromoCodeModel pCodeModel)
         {
-            PromoCodeEntity promoCode = _promoCodeFactory.Create(name, discount, expiryDate);
-            _promoCodes.Add(promoCode);
+            PromoCodeEntity promoCode = new PromoCodeEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = pCodeModel.Name,
+                Discount = pCodeModel.Discount,
+                ExpiryDate = pCodeModel.ExpiryDate
+            };
+            _nosql.PromoCode.Add(promoCode);
+            await _nosql.SaveChangesAsync();
             return promoCode;
         }
 
-        public async Task<List<PromoCodeEntity>> GetAllPromoCodesAsync()
+        public async Task<IActionResult> GetAllPromoCodesAsync()
         {
-            return _promoCodes;
+            var promoCodes = new List<PromoCodeModel>();
+            foreach (var promoCode in await _nosql.PromoCode.ToListAsync())
+                promoCodes.Add(new PromoCodeModel
+                {
+                    Id = promoCode.Id,
+                    Name = promoCode.Name,
+                    Discount = promoCode.Discount,
+                    ExpiryDate = promoCode.ExpiryDate
+                });
+            return new OkObjectResult(promoCodes);
+
         }
 
         public async Task DeletePromoCodeAsync(Guid id)
         {
-            PromoCodeEntity promoCode = _promoCodes.FirstOrDefault(x => x.Id == id)!;
+            var promoCode = await _nosql.PromoCode.FirstOrDefaultAsync(x => x.Id == id);
             if (promoCode != null)
             {
-                _promoCodes.Remove(promoCode);
+                _nosql.PromoCode.Remove(promoCode);
+                await _nosql.SaveChangesAsync();
             }
         }
     }

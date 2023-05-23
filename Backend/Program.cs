@@ -19,6 +19,7 @@ builder.Services.AddDbContext<SqlContext>(x => x.UseSqlServer(builder.Configurat
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CreditCardService>();
+builder.Services.AddScoped<PromoCodeService>();
 
 //Repositories
 builder.Services.AddScoped<UserRepositoy>();
