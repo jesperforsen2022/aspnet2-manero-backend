@@ -67,12 +67,12 @@ namespace Backend.Services
         {
             OrderEntity orderEntity = new()
             {
-                Id = Guid.NewGuid(),
+                //Id = Guid.NewGuid(),
                 Price = order.Price,
-                Date = order.Date,
+                //Date = order.Date,
                 Profile = order.Profile,
                 Products = order.Products,
-                OrderStatus = order.OrderStatus,
+                //OrderStatus = order.OrderStatus,
                 PaymentMethod = order.PaymentMethod,
                 Comment = order.Comment,
                 Delivery = order.Delivery,
