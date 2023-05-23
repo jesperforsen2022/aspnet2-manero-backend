@@ -20,6 +20,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CreditCardService>();
 builder.Services.AddScoped<PromoCodeService>();
+builder.Services.AddScoped<OrderService>();
 
 //Repositories
 builder.Services.AddScoped<UserRepositoy>();
