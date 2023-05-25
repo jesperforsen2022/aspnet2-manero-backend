@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Azure.Cosmos.Linq;
+using Backend.Services;
 
 namespace Backend.Models.Entities
 {
@@ -13,7 +14,7 @@ namespace Backend.Models.Entities
         public string? Description { get; set; }
         public float? RatingStar { get; set; }
         public List<float>? RatingStarList { get; set; } = new List<float>();  
-        public List<string>? Rating { get; set; } = new List<string>();  
+        public List<string>? Review { get; set; } = new List<string>();  
         public string? Specification { get; set; }
         public string? ImageName { get; set; }
         public string? Color { get; set; }
@@ -33,6 +34,7 @@ namespace Backend.Models.Entities
                 Price = entity.Price,
                 Category = entity.Category,
                 Description = entity.Description,
+                RatingStar = entity.RatingStar,
                 ImageName = entity.ImageName,
                 Color = entity.Color,
                 Gender = entity.Gender,
