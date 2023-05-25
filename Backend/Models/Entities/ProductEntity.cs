@@ -13,8 +13,6 @@ namespace Backend.Models.Entities
         public string Category { get; set; } = null!;
         public string? Description { get; set; }
         public float? RatingStar { get; set; }
-        public List<float>? RatingStarList { get; set; } = new List<float>();  
-        public List<string>? Review { get; set; } = new List<string>();  
         public string? Specification { get; set; }
         public string? ImageName { get; set; }
         public string? Color { get; set; }

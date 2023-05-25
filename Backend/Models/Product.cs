@@ -9,6 +9,7 @@
         public string Category { get; set; } = null!;
         public string? Description { get; set; }
         public float? RatingStar { get; set; }
+        public List<string>? Review { get; set; } = new List<string>();
         public string? ImageName { get; set; } = null!;
         public string? Color { get; set; }
         public string? Gender { get; set; }
