@@ -10,6 +10,7 @@
         public string? Color { get; set; }
         public string? Gender { get; set; }
         public string? Size { get; set; }
+        public string? Image { get; set; }
         public decimal? Quantity { get; set; }
     }
 }
