@@ -6,7 +6,7 @@ namespace Backend.Models.Entities.User
     public class CreditCardEntity : ICreditCard
     {
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; } = null!;
         public string CardName { get; set; } = null!;
         public string CardNumber { get; set; } = null!;
         public int ExpireMonth { get; set; }

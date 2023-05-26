@@ -21,6 +21,11 @@ public abstract class GeneralRepository<TEntity> where TEntity : class
     {
         return await _context.Set<TEntity>().AnyAsync(predicate);
     }
+
+    public virtual async Task<bool> AnyAsyncWhere(Expression<Func<TEntity, bool>> predicate)
+    {
+        return await _context.Set<TEntity>().AnyAsync(predicate);
+    }
     public virtual async Task<TEntity> AddAsync(TEntity entity)
     {
         if (entity != null)

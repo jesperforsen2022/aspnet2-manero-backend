@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20230515151327_Init")]
-    partial class Init
+    [Migration("20230525071307_socila account")]
+    partial class socilaaccount
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,8 +75,9 @@ namespace Backend.Migrations
                     b.Property<int>("ExpireYear")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -102,8 +103,8 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Entities.User.UserAddressEntity", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
@@ -117,9 +118,8 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Entities.User.UserEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -128,22 +128,27 @@ namespace Backend.Migrations
                     b.Property<string>("ImageSrc")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSocialAccount")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Password")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("SecurityKey")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");

@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Models.Entities.User;
 using Backend.Models.Users;
 using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,35 @@ namespace Backend.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            
+            var user = await _userService.GetUserFromToken(User);
+            UserProfileModel model = user;
+            if (model == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(model);
+        }
+
+        [HttpGet("socialprofile")]
+        public async Task<IActionResult> GetUserSocialProfile(string id)
+        {
+
+            var user = await _userService.GetUserFromId(id);
+            UserProfileModel model = user;
+            if (model == null)
+            {
+                return Unauthorized();
+            }
+
+
+            return Ok(model);
+        }
+
 
         [HttpGet("addresses")]
         public async Task<IActionResult> GetAllAddresses()

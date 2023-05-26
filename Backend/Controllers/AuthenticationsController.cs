@@ -25,16 +25,44 @@ namespace Backend.Controllers
         {
             if(ModelState.IsValid)
             {
-                if(await _userService.CheckUserExistsAsync(x=> x.Email ==  model.Email))
-                {
-                    return Conflict("User with email already exists");
-                }
+               
+                
                 if(await _userService.RegisterAsync(model, model.Password))
                 {
                     return Created("", null);
                 }
+                return Conflict("A user with this email already exists");
             }
-            return BadRequest();
+            return BadRequest("Email or password is not valid");
+        }
+
+
+        [HttpPost("socialaccountsignup")]
+        public async Task<IActionResult> SocialAccountSignUp(UserSocialAccountRegisterModel model) 
+        {
+            if (ModelState.IsValid)
+                
+            {
+                var user = await _userService.GetUserFromId(model.Id);
+                if (await _userService.CheckUserExistsAsync(x => x.Id == model.Id))
+                {
+
+                    return Ok(new { Token = TokenGenerator.GenerateJwtToken(user) });                   
+                  
+                }
+
+                if (await _userService.RegisterSocialAccountAsync(model))
+                {
+                    return Created("", model);
+                }
+
+                //var (success, token) = await _userService.RegisterSocialAccountAsync(model);
+                //if (success)
+                //{
+                //    return Created("", token);
+                //}
+            }
+            return BadRequest("Something went wrong");
         }
 
         [HttpPost("signin")]
@@ -55,5 +83,7 @@ namespace Backend.Controllers
             }
             return Unauthorized("Incorrect email or password");
         }
+
+       
     }
 }
