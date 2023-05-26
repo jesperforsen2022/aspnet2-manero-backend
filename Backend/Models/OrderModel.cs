@@ -8,7 +8,7 @@ namespace Backend.Models
         public decimal Price { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public UserProfileModel Profile { get; set; } = null!;
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<OrderProductModel> Products { get; set; } = new List<OrderProductModel>();
         public string? OrderStatus { get; set; }
         public string PaymentMethod { get; set; } = null!;
         public string? Comment { get; set; }
