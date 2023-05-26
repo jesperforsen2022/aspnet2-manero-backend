@@ -31,15 +31,24 @@ namespace Backend.Services
             {
                 throw new ArgumentException("Invalid user token");
             }
-            var userId = Guid.Parse(userIdClaim.Value);
-
-            var user = await _userRepo.GetAsync(x => x.Id == userId);
+            
+            var user = await _userRepo.GetAsync(x => x.Id == userIdClaim.Value);
 
             if (user == null)
             {
                 throw new ArgumentException("User not found");
             }
 
+            return user;
+        }
+        public async Task<UserEntity> GetUserFromId(string userId)
+        {
+            var user = await _userRepo.GetAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found");
+            }
+            
             return user;
         }
 
@@ -77,36 +86,36 @@ namespace Backend.Services
                 catch { }
             }
 
-
-            if (!await _userRepo.AnyAsync(x => x.Email == user.Email))
+            if (user.Provider == "local" && !await _userRepo.AnyAsync(x => x.Email == user.Email && x.Provider == "local"))
             {
-                var userRole = await _roleRepo.GetAsync(x => x.Name == "User");
-                var adminRole = await _roleRepo.GetAsync(x => x.Name == "Admin");
+                    var userRole = await _roleRepo.GetAsync(x => x.Name == "User");
+                    var adminRole = await _roleRepo.GetAsync(x => x.Name == "Admin");
 
-                user.Id = Guid.NewGuid();
-                if (await CheckUserExistsAsync(x => x.RoleId == adminRole.Id))
-                {
-                    user.RoleId = userRole.Id;
-                }
-                else
-                {
-                    user.RoleId = adminRole.Id;
-                }
+                    user.Id = Guid.NewGuid().ToString();
+                    if (await CheckUserExistsAsync(x => x.RoleId == adminRole.Id))
+                    {
+                        user.RoleId = userRole.Id;
+                    }
+                    else
+                    {
+                        user.RoleId = adminRole.Id;
+                    }
 
-                user.SetSecurePassword(password);
-                await _userRepo.AddAsync(user);
+                    user.SetSecurePassword(password);
+                    await _userRepo.AddAsync(user);
 
-                if (await _userRepo.AnyAsync(x => x.Email == user.Email))
-                {
-                    return true;
+                    if (await _userRepo.AnyAsync(x => x.Id == user.Id))
+                    {
+                        return true;
+                    }
                 }
-            }
+            
             return false;
         }
 
         public async Task<string> LoginAsync(string email, string password)
         {
-            var entity = await _userRepo.GetAsync(x => x.Email == email);
+            var entity = await _userRepo.GetAsync(x => x.Email == email && x.Provider == "local");
             if (entity != null)
             {
                 if (entity.ValidateSecurePassword(password))
@@ -214,6 +223,66 @@ namespace Backend.Services
             }
             return false;
         }
+
+        public async Task<bool> RegisterSocialAccountAsync(UserEntity user) /*(bool, string )*/
+        {
+            if (!await _userRepo.AnyAsync() || !await _roleRepo.AnyAsync())
+            {
+                try
+                {
+                    var roleAdminId = Guid.NewGuid();
+                    await _roleRepo.AddAsync(new RoleEntity
+                    {
+                        Id = roleAdminId,
+                        Name = "Admin"
+
+                    });
+                    user.RoleId = roleAdminId;
+
+                }
+                catch { }
+                try
+                {
+                    var roleUserId = Guid.NewGuid();
+                    await _roleRepo.AddAsync(new RoleEntity
+                    {
+                        Id = roleUserId,
+                        Name = "User"
+                    });
+                }
+                catch { }
+            }
+
+
+            if (!await _userRepo.AnyAsync(x => x.Id == user.Id))
+            {
+                var userRole = await _roleRepo.GetAsync(x => x.Name == "User");
+                var adminRole = await _roleRepo.GetAsync(x => x.Name == "Admin");
+
+                
+                if (await CheckUserExistsAsync(x => x.RoleId == adminRole.Id))
+                {
+                    user.RoleId = userRole.Id;
+                }
+                else
+                {
+                    user.RoleId = adminRole.Id;
+                }
+
+               
+                await _userRepo.AddAsync(user);
+
+                if (await _userRepo.AnyAsync(x => x.Id == user.Id))
+                {
+                    //var token = TokenGenerator.GenerateJwtToken(user);
+                    //return (true, token);
+                    return true;
+                }
+            }
+            //return (false, null!);
+            return false;
+        }
+
 
     }
 

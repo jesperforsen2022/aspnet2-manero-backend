@@ -64,6 +64,8 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+
+
 var app = builder.Build();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 app.UseSwagger();

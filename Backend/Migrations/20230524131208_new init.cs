@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class newinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,12 +42,14 @@ namespace Backend.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageSrc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsSocialAccount = table.Column<bool>(type: "bit", nullable: false),
+                    Provider = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     SecurityKey = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
@@ -67,7 +69,7 @@ namespace Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CardName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExpireMonth = table.Column<int>(type: "int", nullable: false),
@@ -89,7 +91,7 @@ namespace Backend.Migrations
                 name: "UserAddresses",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
