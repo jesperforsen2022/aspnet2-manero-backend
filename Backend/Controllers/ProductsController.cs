@@ -1,6 +1,7 @@
 ﻿using Backend.Contexts;
 using Backend.Models;
 using Backend.Models.Entities;
+using Backend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,32 +12,49 @@ namespace Backend.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly NoSqlContext _nosql;
+        private readonly ProductService _productService;
 
-        public ProductsController(NoSqlContext nosql)
+        public ProductsController(ProductService productService)
         {
-            _nosql = nosql;
+            _productService = productService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductRequest product)
+        public async Task<IActionResult> Create(ProductEntity product)
         {
-            ProductEntity productEntity = product;
-            _nosql.ProductsCatalog.Add(productEntity);
-            await _nosql.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                ProductEntity productEntity = product;
+                await _productService.CreateProduct(productEntity);
+                return Ok(productEntity);
+            }
 
-            Product _product = productEntity;
+            return BadRequest(ModelState);
+        }
 
-            return Ok(_product);
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            List<ProductEntity> products = await _productService.GetAllProducts();
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            ProductEntity product = await _productService.GetProductById(id);
+
+            if (product == null)
+                return NotFound();
+
+            return Ok(product);
         }
 
         [HttpGet("{tag}/{take}")]
-
-        public async Task <IActionResult> GetAll(string tag, int take)
+        public async Task<IActionResult> GetByTag(string tag, int take)
         {
-            var products = await _nosql.ProductsCatalog.Take(take).ToListAsync();
-            var filteredProducts = products.Where(x => x.Tags.Contains(tag)).ToList();
-            return Ok(filteredProducts);
+            List<ProductEntity> products = await _productService.GetProductsByTag(tag, take);
+            return Ok(products);
         }
     }
 }
