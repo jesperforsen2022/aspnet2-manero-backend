@@ -1,4 +1,5 @@
 using Backend.Contexts;
+using Backend.Repositories;
 using Backend.Repositories.Users;
 using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -21,13 +22,16 @@ builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CreditCardService>();
 builder.Services.AddScoped<PromoCodeService>();
 builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<ProductService>();
 
 //Repositories
-builder.Services.AddScoped<UserRepositoy>();
+builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<AddressRepositoy>();
 builder.Services.AddScoped<CreditCardRepository>();
 builder.Services.AddScoped<RoleRepositoty>();
+builder.Services.AddScoped<UserRepositoy>();
 builder.Services.AddScoped<UserAddressRepository>();
+builder.Services.AddScoped<ProductRepository>();
 
 //Authentications
 builder.Services.AddAuthentication(x =>
