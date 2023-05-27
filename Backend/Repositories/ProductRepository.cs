@@ -2,6 +2,8 @@
 using Backend.Models.Entities;
 using Backend.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Repositories
 {
@@ -14,7 +16,7 @@ namespace Backend.Repositories
             _noSql = noSql;
         }
 
-        public async Task<ProductEntity> GetById(int id)
+        public async Task<ProductEntity> GetById(Guid id)
         {
             return await _noSql.ProductsCatalog.FindAsync(id);
         }
@@ -26,6 +28,7 @@ namespace Backend.Repositories
 
         public async Task<List<ProductEntity>> GetByTag(string tag, int take)
         {
+
             return await _noSql.ProductsCatalog
                 .Where(x => x.Tags.Contains(tag))
                 .Take(take)

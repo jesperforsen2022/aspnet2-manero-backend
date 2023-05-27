@@ -40,7 +40,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             ProductEntity product = await _productService.GetProductById(id);
 

@@ -20,7 +20,7 @@ namespace Backend.Services
             await _productRepo.Create(product);
         }
 
-        public async Task<ProductEntity> GetProductById(int id)
+        public async Task<ProductEntity> GetProductById(Guid id)
         {
             return await _productRepo.GetById(id);
         }
