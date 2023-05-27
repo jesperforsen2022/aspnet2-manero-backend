@@ -5,7 +5,7 @@ namespace Backend.Models
     public class OrderModel
     {
         public Guid? Id { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         public DateTime? Date { get; set; }
         public UserProfileModel? Profile { get; set; }
         public List<OrderProductModel>? Products { get; set; } = new List<OrderProductModel>();
