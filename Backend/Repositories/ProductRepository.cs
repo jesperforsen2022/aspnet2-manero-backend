@@ -28,11 +28,9 @@ namespace Backend.Repositories
 
         public async Task<List<ProductEntity>> GetByTag(string tag, int take)
         {
-
-            return await _noSql.ProductsCatalog
-                .Where(x => x.Tags.Contains(tag))
-                .Take(take)
-                .ToListAsync();
+            var products = await _noSql.ProductsCatalog.Take(take).ToListAsync();
+            var filteredProducts = products.Where(x => x.Tags.Contains(tag)).ToList();
+            return filteredProducts;
         }
 
         public async Task Create(ProductEntity product)
