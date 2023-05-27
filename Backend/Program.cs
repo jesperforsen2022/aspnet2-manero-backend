@@ -31,6 +31,7 @@ builder.Services.AddScoped<CreditCardRepository>();
 builder.Services.AddScoped<RoleRepositoty>();
 builder.Services.AddScoped<UserRepositoy>();
 builder.Services.AddScoped<UserAddressRepository>();
+builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<ProductRepository>();
 
 //Authentications
