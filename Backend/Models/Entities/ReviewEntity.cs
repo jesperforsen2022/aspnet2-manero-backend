@@ -2,8 +2,9 @@
 {
     public class ReviewEntity
     {
-        public float? RatingStar { get; set; }
-        public List<float>? RatingStarList { get; set; } = new List<float>();
-        public List<string>? Review { get; set; } = new List<string>();
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public decimal? RatingStar { get; set; } = 0;
+
+        public List<ReviewModel>? Reviews { get; set; } = new List<ReviewModel>();
     }
 }
