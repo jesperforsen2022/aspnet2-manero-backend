@@ -43,24 +43,21 @@ namespace Backend.Controllers
             if (ModelState.IsValid)
                 
             {
-                var user = await _userService.GetUserFromId(model.Id);
                 if (await _userService.CheckUserExistsAsync(x => x.Id == model.Id))
                 {
+                    var user = await _userService.GetUserFromId(model.Id);
+                    var token = TokenGenerator.GenerateJwtToken(user);
+                    return Ok(new { Token = token });
 
-                    return Ok(new { Token = TokenGenerator.GenerateJwtToken(user) });                   
-                  
                 }
 
                 if (await _userService.RegisterSocialAccountAsync(model))
                 {
-                    return Created("", model);
+                    var user = await _userService.GetUserFromId(model.Id);
+                    var token = TokenGenerator.GenerateJwtToken(user);
+                    return Ok(new { Token = token });
                 }
 
-                //var (success, token) = await _userService.RegisterSocialAccountAsync(model);
-                //if (success)
-                //{
-                //    return Created("", token);
-                //}
             }
             return BadRequest("Something went wrong");
         }

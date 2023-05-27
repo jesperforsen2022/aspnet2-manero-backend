@@ -52,10 +52,10 @@ namespace Backend.Controllers
         }
 
         [HttpGet("socialprofile")]
-        public async Task<IActionResult> GetUserSocialProfile(string id)
+        public async Task<IActionResult> GetUserSocialProfile()
         {
 
-            var user = await _userService.GetUserFromId(id);
+            var user = await _userService.GetUserFromToken(User);
             UserProfileModel model = user;
             if (model == null)
             {

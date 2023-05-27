@@ -224,7 +224,7 @@ namespace Backend.Services
             return false;
         }
 
-        public async Task<bool> RegisterSocialAccountAsync(UserEntity user) /*(bool, string )*/
+        public async Task<bool> RegisterSocialAccountAsync(UserEntity user) 
         {
             if (!await _userRepo.AnyAsync() || !await _roleRepo.AnyAsync())
             {
@@ -254,7 +254,7 @@ namespace Backend.Services
             }
 
 
-            if (!await _userRepo.AnyAsync(x => x.Id == user.Id))
+            if (!await _userRepo.AnyAsync(x => x.Id == user.Id)) 
             {
                 var userRole = await _roleRepo.GetAsync(x => x.Name == "User");
                 var adminRole = await _roleRepo.GetAsync(x => x.Name == "Admin");
@@ -274,12 +274,10 @@ namespace Backend.Services
 
                 if (await _userRepo.AnyAsync(x => x.Id == user.Id))
                 {
-                    //var token = TokenGenerator.GenerateJwtToken(user);
-                    //return (true, token);
                     return true;
                 }
             }
-            //return (false, null!);
+
             return false;
         }
 
