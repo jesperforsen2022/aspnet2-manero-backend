@@ -26,10 +26,10 @@ namespace Backend.Services
             return await _orderRepo.GetOrder(email);
         }
 
-        public async Task<IActionResult> CreateOrder(OrderModel order)
-        {
-           return await _orderRepo.CreateOrder(order);
-        }
+        //public async Task<IActionResult> CreateOrder(OrderModel order)
+        //{
+        //   return await _orderRepo.CreateOrder(order);
+        //}
 
     }
 }

@@ -34,12 +34,12 @@ namespace Backend.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Create(OrderModel order)
-        {
-            var orderEntity = await _orderService.CreateOrder(order);
-            return Ok(orderEntity);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Create(OrderModel order)
+        //{
+        //    var orderEntity = await _orderService.CreateOrder(order);
+        //    return Ok(orderEntity);
+        //}
 
     }
 }
