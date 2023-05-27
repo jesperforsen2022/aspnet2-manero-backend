@@ -25,10 +25,11 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ProductService>();
 
 //Repositories
-builder.Services.AddScoped<ProductRepositoy>();
+builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<AddressRepositoy>();
 builder.Services.AddScoped<CreditCardRepository>();
 builder.Services.AddScoped<RoleRepositoty>();
+builder.Services.AddScoped<UserRepositoy>();
 builder.Services.AddScoped<UserAddressRepository>();
 builder.Services.AddScoped<ProductRepository>();
 
