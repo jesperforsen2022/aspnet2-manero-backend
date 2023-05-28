@@ -1,11 +1,8 @@
-﻿using Backend.Contexts;
-using Backend.Models;
-using Backend.Models.Entities.User;
-using Backend.Models.Users;
+﻿using Backend.Interfaces;
+using Backend.Models.Users.Dtos;
+using Backend.Models.Users.Schemas;
 using Backend.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.OleDb;
 
 namespace Backend.Controllers
 {
@@ -13,9 +10,9 @@ namespace Backend.Controllers
     [ApiController]
     public class AuthenticationsController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public AuthenticationsController(UserService userService)
+        public AuthenticationsController(IUserService userService)
         {
             _userService = userService;
         }
@@ -80,7 +77,6 @@ namespace Backend.Controllers
             }
             return Unauthorized("Incorrect email or password");
         }
-
        
     }
 }

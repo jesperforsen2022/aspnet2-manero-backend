@@ -1,9 +1,9 @@
 ﻿using Backend.Interfaces;
-using Backend.Models.Users;
+using Backend.Models.Users.Dtos;
 
 namespace Backend.Models.Entities.User;
 
-public class AddressEntity : IAddress
+public class AddressEntity : IAddressEntity
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = null!;

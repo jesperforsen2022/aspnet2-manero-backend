@@ -1,16 +1,16 @@
 ﻿using Backend.Interfaces;
-using Backend.Models.Users;
+using Backend.Models.Users.Dtos;
 
 namespace Backend.Models.Entities.User
 {
-    public class CreditCardEntity : ICreditCard
+    public class CreditCardEntity : ICreditCardEntity
     {
         public Guid Id { get; set; }
         public string UserId { get; set; } = null!;
         public string CardName { get; set; } = null!;
         public string CardNumber { get; set; } = null!;
         public int ExpireMonth { get; set; }
-        public int ExpireYear { get; set;}
+        public int ExpireYear { get; set; }
         public int CvvCode { get; set; }
         public UserEntity User { get; set; } = null!;
 

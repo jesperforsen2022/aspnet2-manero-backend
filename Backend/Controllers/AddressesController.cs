@@ -1,8 +1,5 @@
-﻿using Backend.Models;
-using Backend.Models.Entities.User;
-using Backend.Models.Users;
-using Backend.Repositories.Users;
-using Backend.Services;
+﻿using Backend.Interfaces;
+using Backend.Models.Users.Schemas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,14 +11,12 @@ namespace Backend.Controllers
     [Authorize]
     public class AddressesController : ControllerBase
     {
-        private readonly AddressService _addressService;
-        private readonly UserService _userService;
+        private readonly IAddressService _addressService;
 
 
-        public AddressesController(AddressService addressService, UserService userService)
+        public AddressesController(IAddressService addressService)
         {
             _addressService = addressService;
-            _userService = userService;
         }
 
         [HttpPost("register")] 
@@ -29,7 +24,7 @@ namespace Backend.Controllers
         {
             if(ModelState.IsValid)
             {
-                var user = await _userService.GetUserFromToken(User);
+                var user = await _addressService.GetUserFromToken(User);
 
                 if (await _addressService.RegisterAddressAsync(user, model))
                 {
@@ -42,6 +37,23 @@ namespace Backend.Controllers
 
             }
             return BadRequest("Invalid address data");
+        }
+
+        [HttpGet("addresses")]
+        public async Task<IActionResult> GetAllAddresses()
+        {
+            var user = await _addressService.GetUserFromToken(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var addresses = await _addressService.GetAllAddressesForUser(user);
+            if (addresses == null || !addresses.Any())
+            {
+                return NotFound("No addreses found for the user");
+            }
+            return Ok(addresses);
         }
 
     }

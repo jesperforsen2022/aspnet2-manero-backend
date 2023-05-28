@@ -1,6 +1,8 @@
-﻿namespace Backend.Models.Users
+﻿using Backend.Interfaces;
+
+namespace Backend.Models.Users.Dtos
 {
-    public class CreditCardModel
+    public class CreditCardModel : ICreditCardModel
     {
         public Guid CreditCardId { get; set; }
         public string CardName { get; set; } = null!;

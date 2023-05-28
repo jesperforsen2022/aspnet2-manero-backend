@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Backend.Interfaces;
 
-namespace Backend.Models.Users;
+namespace Backend.Models.Users.Dtos;
 
-public class UserSignInModel
+public class UserSignInModel : IUserSignInModel
 {
     [Required]
     [EmailAddress]

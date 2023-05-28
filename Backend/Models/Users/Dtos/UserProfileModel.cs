@@ -1,8 +1,8 @@
-﻿using Backend.Models.Users;
+﻿using Backend.Interfaces;
 
-namespace Backend.Models
+namespace Backend.Models.Users.Dtos
 {
-    public class UserProfileModel
+    public class UserProfileModel : IUserProfileModel
     {
         public string Email { get; set; } = null!;
         public string Name { get; set; } = null!;
