@@ -2,7 +2,7 @@
 
 namespace Backend.Models.Entities.User
 {
-    public class RoleEntity : IRole
+    public class RoleEntity : IRoleEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;

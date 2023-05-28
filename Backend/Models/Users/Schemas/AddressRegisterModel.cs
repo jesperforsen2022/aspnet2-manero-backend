@@ -1,9 +1,10 @@
-﻿using Backend.Models.Entities.User;
+﻿using Backend.Interfaces;
+using Backend.Models.Entities.User;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.Users;
+namespace Backend.Models.Users.Schemas;
 
-public class AddressRegisterModel
+public class AddressRegisterModel : IAddressRegisterModel
 {
     [Required]
     public string Title { get; set; } = null!;

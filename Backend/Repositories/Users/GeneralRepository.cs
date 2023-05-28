@@ -1,10 +1,11 @@
 ﻿using Backend.Contexts;
+using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Backend.Repositories.Users;
 
-public abstract class GeneralRepository<TEntity> where TEntity : class
+public abstract class GeneralRepository<TEntity> : IGeneralRepository<TEntity> where TEntity : class
 {
     private readonly SqlContext _context;
 
@@ -65,7 +66,7 @@ public abstract class GeneralRepository<TEntity> where TEntity : class
 
     public virtual async Task<bool> RemoveRangeAsync(TEntity entity)
     {
-        if(entity != null)
+        if (entity != null)
         {
             _context.Set<TEntity>().RemoveRange(entity);
             await _context.SaveChangesAsync();

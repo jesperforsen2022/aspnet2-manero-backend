@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Backend.Models.Entities.User
 {
-    public class UserEntity : IUser
+    public class UserEntity : IUserEntity
     {
         public string Id { get; set; } = null!;
         public Guid RoleId { get; set; }
@@ -16,7 +16,7 @@ namespace Backend.Models.Entities.User
         public bool IsSocialAccount { get; set; } = false;
         public string Provider { get; set; } = "local";
 
-        public ICollection <CreditCardEntity>? CreditCards { get; set; }
+        public ICollection<CreditCardEntity>? CreditCards { get; set; }
         public RoleEntity Role { get; set; } = null!;
         public ICollection<UserAddressEntity>? UserAddress { get; set; }
         public byte[]? Password { get; private set; }

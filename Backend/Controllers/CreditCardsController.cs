@@ -1,6 +1,5 @@
-﻿using Backend.Models.Users;
-using Backend.Services;
-using Microsoft.AspNetCore.Http;
+﻿using Backend.Interfaces;
+using Backend.Models.Users.Schemas;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -9,12 +8,10 @@ namespace Backend.Controllers
     [ApiController]
     public class CreditCardsController : ControllerBase
     {
-        private readonly UserService _userService;
-        private readonly CreditCardService _creditCardService;
+        private readonly ICreditCardService _creditCardService;
 
-        public CreditCardsController(UserService userService, CreditCardService creditCardService)
+        public CreditCardsController(ICreditCardService creditCardService)
         {
-            _userService = userService;
             _creditCardService = creditCardService;
         }
 
@@ -23,7 +20,7 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userService.GetUserFromToken(User);
+                var user = await _creditCardService.GetUserFromToken(User);
 
                 if (await _creditCardService.RegisterCreditCardAsync(user, model))
                 {
@@ -36,6 +33,24 @@ namespace Backend.Controllers
 
             }
             return BadRequest("Invalid creditcard data");
+        }
+
+        [HttpGet("creditcards")]
+        public async Task<IActionResult> GetAllCreditCards()
+        {
+            var user = await _creditCardService.GetUserFromToken(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var creditCards = await _creditCardService.GetAllCreditCardsForUser(user);
+            if (creditCards == null || !creditCards.Any())
+            {
+                return NotFound("No creditcards found for the user");
+            }
+
+            return Ok(creditCards);
         }
     }
 

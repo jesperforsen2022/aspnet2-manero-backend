@@ -1,4 +1,5 @@
 using Backend.Contexts;
+using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Repositories.Users;
 using Backend.Services;
@@ -17,20 +18,20 @@ builder.Services.AddDbContext<NoSqlContext>(x => x.UseCosmos(builder.Configurati
 builder.Services.AddDbContext<SqlContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Sql")));
 
 //Services
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<AddressService>();
-builder.Services.AddScoped<CreditCardService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<ICreditCardService, CreditCardService>();
 builder.Services.AddScoped<PromoCodeService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ProductService>();
 
 //Repositories
 builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<AddressRepositoy>();
-builder.Services.AddScoped<CreditCardRepository>();
-builder.Services.AddScoped<RoleRepositoty>();
-builder.Services.AddScoped<UserRepositoy>();
-builder.Services.AddScoped<UserAddressRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<ICreditCardRepository, CreditCardRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepositoty>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
 builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<ProductRepository>();
 

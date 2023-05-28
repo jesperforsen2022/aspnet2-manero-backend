@@ -1,8 +1,9 @@
-﻿using Backend.Models.Entities.User;
+﻿using Backend.Interfaces;
+using Backend.Models.Entities.User;
 
-namespace Backend.Models.Users
+namespace Backend.Models.Users.Schemas
 {
-    public class CreditCardRegisterModel
+    public class CreditCardRegisterModel : ICreditCardRegisterModel
     {
         public string CardName { get; set; } = null!;
         public string CardNumber { get; set; } = null!;

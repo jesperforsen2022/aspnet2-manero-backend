@@ -1,6 +1,8 @@
-﻿namespace Backend.Models.Entities.User
+﻿using Backend.Interfaces;
+
+namespace Backend.Models.Entities.User
 {
-    public class UserAddressEntity
+    public class UserAddressEntity : IUserAddressEntity
     {
         public string UserId { get; set; } = null!;
         public Guid AddressId { get; set; }
