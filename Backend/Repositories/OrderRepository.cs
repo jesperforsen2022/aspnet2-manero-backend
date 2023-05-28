@@ -44,6 +44,28 @@ namespace Backend.Repositories
         public async Task<IActionResult> GetOrder(string email)
         {
             var ordersOfUser = new List<OrderModel>();
+            //OrderModel ordersOfUser;
+
+            //foreach (var order in await _nosql.Orders.ToListAsync())
+            //{
+            //    if (order.Profile.Email == email)
+            //    {
+            //        ordersOfUser = new OrderModel
+            //        {
+            //            Id = order.Id,
+            //            Price = order.Price,
+            //            Date = order.Date,
+            //            Profile = order.Profile,
+            //            Products = order.Products,
+            //            OrderStatus = order.OrderStatus,
+            //            PaymentMethod = order.PaymentMethod,
+            //            Comment = order.Comment,
+            //            Delivery = order.Delivery,
+            //            PromoCodes = order.PromoCodes
+            //        };
+            //        return new OkObjectResult(ordersOfUser);
+            //    }
+            //}
 
             foreach (var order in await _nosql.Orders.ToListAsync())
             {
@@ -66,6 +88,7 @@ namespace Backend.Repositories
             }
             //return Ok(ordersOfUser);
             return new OkObjectResult(ordersOfUser);
+            //return new OkObjectResult(ordersOfUser);
         }
 
         public async Task<IActionResult> CreateOrder(OrderModel order)
