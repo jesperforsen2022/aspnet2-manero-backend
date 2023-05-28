@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Backend.Models.Users.Dtos;
 using System.Security.Cryptography;
 using System.Text;
 

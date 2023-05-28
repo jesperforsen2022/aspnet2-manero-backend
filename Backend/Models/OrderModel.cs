@@ -1,4 +1,5 @@
 ﻿using Backend.Models.Entities;
+using Backend.Models.Users.Dtos;
 
 namespace Backend.Models
 {

@@ -1,6 +1,6 @@
 ﻿using Backend.Interfaces;
-using Backend.Models;
 using Backend.Models.Entities.User;
+using Backend.Models.Users.Dtos;
 using System.Linq.Expressions;
 using System.Security.Claims;
 
