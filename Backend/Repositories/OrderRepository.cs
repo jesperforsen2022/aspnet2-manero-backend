@@ -3,6 +3,8 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
+using Backend.Services;
 
 namespace Backend.Repositories
 {
@@ -18,11 +20,9 @@ namespace Backend.Repositories
 
         public async Task<IActionResult> GetAllOrders()
         {
-            //var orders = new List<OrderModel>();
-            var _orders =  await _nosql.Orders.ToListAsync();
-            List<OrderModel> orders = new List<OrderModel>();
-            //foreach (OrderEntity order in await _nosql.Orders.ToListAsync())
-            foreach (OrderEntity order in _orders) { 
+            var orders = new List<OrderModel>();
+            foreach (var order in await _nosql.Orders.ToListAsync())
+            {
                 orders.Add(new OrderModel
                 {
                     Id = order.Id,
@@ -37,35 +37,12 @@ namespace Backend.Repositories
                     PromoCodes = order.PromoCodes
                 });
             }
-            //return Ok(orders);
             return new OkObjectResult(orders);
         }
 
         public async Task<IActionResult> GetOrder(string email)
         {
             var ordersOfUser = new List<OrderModel>();
-            //OrderModel ordersOfUser;
-
-            //foreach (var order in await _nosql.Orders.ToListAsync())
-            //{
-            //    if (order.Profile.Email == email)
-            //    {
-            //        ordersOfUser = new OrderModel
-            //        {
-            //            Id = order.Id,
-            //            Price = order.Price,
-            //            Date = order.Date,
-            //            Profile = order.Profile,
-            //            Products = order.Products,
-            //            OrderStatus = order.OrderStatus,
-            //            PaymentMethod = order.PaymentMethod,
-            //            Comment = order.Comment,
-            //            Delivery = order.Delivery,
-            //            PromoCodes = order.PromoCodes
-            //        };
-            //        return new OkObjectResult(ordersOfUser);
-            //    }
-            //}
 
             foreach (var order in await _nosql.Orders.ToListAsync())
             {
@@ -86,21 +63,16 @@ namespace Backend.Repositories
                     });
                 }
             }
-            //return Ok(ordersOfUser);
             return new OkObjectResult(ordersOfUser);
-            //return new OkObjectResult(ordersOfUser);
         }
 
         public async Task<IActionResult> CreateOrder(OrderModel order)
         {
             OrderEntity orderEntity = new()
             {
-                //Id = Guid.NewGuid(),
                 Price = order.Price,
-                //Date = order.Date,
                 Profile = order.Profile,
                 Products = order.Products,
-                //OrderStatus = order.OrderStatus,
                 PaymentMethod = order.PaymentMethod,
                 Comment = order.Comment,
                 Delivery = order.Delivery,
@@ -109,7 +81,6 @@ namespace Backend.Repositories
             _nosql.Orders.Add(orderEntity);
             await _nosql.SaveChangesAsync();
             return new OkObjectResult(orderEntity);
-            //return Ok();
         }
     }
 }
