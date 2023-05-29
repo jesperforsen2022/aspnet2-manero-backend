@@ -7,9 +7,10 @@ namespace Backend.Models
     {
         public Guid Id { get; set; }
         public decimal Price { get; set; }
-        public DateTime Date { get; set; } = DateTime.UtcNow;
-        public UserProfileModel Profile { get; set; } = null!;
-        public List<OrderProductModel> Products { get; set; } = new List<OrderProductModel>();
+        public DateTime? Date { get; set; }
+        public OrderUserProfileModel? Profile { get; set; }
+        public OrderAddressModel? Address { get; set; }
+        public List<OrderProductModel>? Products { get; set; } = new List<OrderProductModel>();
         public string? OrderStatus { get; set; }
         public string PaymentMethod { get; set; } = null!;
         public string? Comment { get; set; }
