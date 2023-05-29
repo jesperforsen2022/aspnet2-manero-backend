@@ -18,7 +18,7 @@ namespace Backend.Repositories
         }
 
 
-        public async Task<IActionResult> GetAllOrders()
+        public virtual async Task<IActionResult> GetAllOrders()
         {
             var orders = new List<OrderModel>();
             foreach (var order in await _nosql.Orders.ToListAsync())
@@ -29,6 +29,7 @@ namespace Backend.Repositories
                     Price = order.Price,
                     Date = order.Date,
                     Profile = order.Profile,
+                    Address = order.Address,
                     Products = order.Products,
                     OrderStatus = order.OrderStatus,
                     PaymentMethod = order.PaymentMethod,
@@ -40,7 +41,7 @@ namespace Backend.Repositories
             return new OkObjectResult(orders);
         }
 
-        public async Task<IActionResult> GetOrder(string email)
+        public virtual async Task<IActionResult> GetOrder(string email)
         {
             var ordersOfUser = new List<OrderModel>();
 
@@ -54,6 +55,7 @@ namespace Backend.Repositories
                         Price = order.Price,
                         Date = order.Date,
                         Profile = order.Profile,
+                        Address = order.Address,
                         Products = order.Products,
                         OrderStatus = order.OrderStatus,
                         PaymentMethod = order.PaymentMethod,
@@ -66,12 +68,13 @@ namespace Backend.Repositories
             return new OkObjectResult(ordersOfUser);
         }
 
-        public async Task<IActionResult> CreateOrder(OrderModel order)
+        public virtual async Task<IActionResult> CreateOrder(OrderModel order)
         {
             OrderEntity orderEntity = new()
             {
                 Price = order.Price,
                 Profile = order.Profile,
+                Address = order.Address,
                 Products = order.Products,
                 PaymentMethod = order.PaymentMethod,
                 Comment = order.Comment,

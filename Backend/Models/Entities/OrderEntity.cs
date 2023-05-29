@@ -1,5 +1,4 @@
-﻿using Backend.Interfaces;
-using Backend.Models.Users.Dtos;
+﻿using Backend.Models.Dtos;
 
 namespace Backend.Models.Entities
 {
@@ -9,6 +8,7 @@ namespace Backend.Models.Entities
         public decimal Price { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public OrderUserProfileModel Profile { get; set; } = null!;
+        public OrderAddressModel Address { get; set; } = null!;
         public List<OrderProductModel> Products { get; set; } = new List<OrderProductModel>();
         public string OrderStatus { get; set; } = "Order is placed";
         public string PaymentMethod { get; set; } = null!;
