@@ -23,7 +23,7 @@ builder.Services.AddDbContext<SqlContext>(x => x.UseSqlServer(builder.Configurat
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ICreditCardService, CreditCardService>();
-builder.Services.AddScoped<PromoCodeService>();
+builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<IPromoCodeService, PromoCodeService>();
 

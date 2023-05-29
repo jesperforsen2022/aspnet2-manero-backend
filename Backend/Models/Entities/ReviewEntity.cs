@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Backend.Models.Entities
+﻿namespace Backend.Models.Entities
 {
     public class ReviewEntity
     {
