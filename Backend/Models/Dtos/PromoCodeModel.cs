@@ -1,6 +1,8 @@
-﻿namespace Backend.Models
+﻿using Backend.Interfaces.PromoCode;
+
+namespace Backend.Models.Dtos
 {
-    public class PromoCodeModel
+    public class PromoCodeModel : IPromoCodeModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;

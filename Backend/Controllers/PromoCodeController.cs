@@ -1,4 +1,6 @@
-﻿using Backend.Models;
+﻿using Backend.Interfaces.PromoCode;
+using Backend.Models.Dtos;
+using Backend.Models.Schemas;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +10,9 @@ namespace Backend.Controllers
     [ApiController]
     public class PromoCodeController : ControllerBase
     {
-        private readonly PromoCodeService _promoCodeService;
+        private readonly IPromoCodeService _promoCodeService;
 
-        public PromoCodeController(PromoCodeService promoCodeService)
+        public PromoCodeController(IPromoCodeService promoCodeService)
         {
             _promoCodeService = promoCodeService;
         }
@@ -18,16 +20,16 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var list = await _promoCodeService.GetAllPromoCodesAsync();
+            var list = await _promoCodeService.GetAllAsync();
 
             return Ok(list);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PromoCodeModel promocode)
+        public async Task<IActionResult> Create(PromoCodeSchema pCSchema)
         {
 
-            var promoCode = await _promoCodeService.CreatePromoCodeAsync(promocode);
+            var promoCode = await _promoCodeService.CreateAsync(pCSchema);
 
             return Ok(promoCode);
         }
@@ -36,9 +38,9 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _promoCodeService.DeletePromoCodeAsync(id);
+            var promoCode = await _promoCodeService.DeleteAsync(id);
 
-            return Ok();
+            return Ok(promoCode);
         }
     }
 }

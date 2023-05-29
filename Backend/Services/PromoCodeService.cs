@@ -1,60 +1,52 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Backend.Contexts;
-using Backend.Models;
+﻿using Backend.Interfaces.PromoCode;
 using Backend.Models.Entities;
-
+using Backend.Models.Schemas;
+using System.Diagnostics;
 
 namespace Backend.Services
 {
-    public class PromoCodeService 
+    public class PromoCodeService : IPromoCodeService
     {
-        private readonly NoSqlContext _nosql;
+        private readonly IPromoCodeRepo _pCRepo;
 
-        public PromoCodeService(NoSqlContext nosql)
+        public PromoCodeService(IPromoCodeRepo pCRepo)
         {
-            _nosql = nosql;
+            _pCRepo = pCRepo;
         }
 
-        public async Task<PromoCodeEntity> CreatePromoCodeAsync(PromoCodeModel pCodeModel)
+        public async Task<PromoCodeEntity> CreateAsync(PromoCodeSchema pCSchema)
         {
-            PromoCodeEntity promoCode = new PromoCodeEntity
+            try
             {
-                Id = Guid.NewGuid(),
-                Name = pCodeModel.Name,
-                Discount = pCodeModel.Discount,
-                ExpiryDate = pCodeModel.ExpiryDate
-            };
-            _nosql.PromoCode.Add(promoCode);
-            await _nosql.SaveChangesAsync();
-            return promoCode;
-        }
-
-        public async Task<IActionResult> GetAllPromoCodesAsync()
-        {
-            var promoCodes = new List<PromoCodeModel>();
-            foreach (var promoCode in await _nosql.PromoCode.ToListAsync())
-                promoCodes.Add(new PromoCodeModel
+                if (pCSchema != null)
                 {
-                    Id = promoCode.Id,
-                    Name = promoCode.Name,
-                    Discount = promoCode.Discount,
-                    ExpiryDate = promoCode.ExpiryDate
-                });
-            return new OkObjectResult(promoCodes);
+                    return await _pCRepo.AddAsync(pCSchema);
+                }
 
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return null!;
         }
 
-        public async Task DeletePromoCodeAsync(Guid id)
+        public async Task<IEnumerable<PromoCodeEntity>> GetAllAsync()
         {
-            var promoCode = await _nosql.PromoCode.FirstOrDefaultAsync(x => x.Id == id);
-            if (promoCode != null)
+            try
             {
-                _nosql.PromoCode.Remove(promoCode);
-                await _nosql.SaveChangesAsync();
+                return await _pCRepo.GetAllAsync();
             }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return null!;
+        }
+
+        public async Task<PromoCodeEntity> DeleteAsync(Guid id)
+        {
+            try
+            {
+                return await _pCRepo.DeleteAsync(id);
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return null!;
         }
     }
+
 }
