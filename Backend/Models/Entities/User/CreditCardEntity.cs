@@ -9,9 +9,9 @@ namespace Backend.Models.Entities.User
         public string UserId { get; set; } = null!;
         public string CardName { get; set; } = null!;
         public string CardNumber { get; set; } = null!;
-        public int ExpireMonth { get; set; }
-        public int ExpireYear { get; set; }
-        public int CvvCode { get; set; }
+        public string ExpireMonth { get; set; } = null!;
+        public string ExpireYear { get; set; } = null!;
+        public string CvvCode { get; set; } = null!;
         public UserEntity User { get; set; } = null!;
 
         public static implicit operator CreditCardModel(CreditCardEntity entity)

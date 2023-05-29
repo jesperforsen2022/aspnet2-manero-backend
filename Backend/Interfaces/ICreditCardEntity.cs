@@ -6,9 +6,9 @@ namespace Backend.Interfaces
     {
         string CardName { get; set; }
         string CardNumber { get; set; }
-        int CvvCode { get; set; }
-        int ExpireMonth { get; set; }
-        int ExpireYear { get; set; }
+        string CvvCode { get; set; }
+        string ExpireMonth { get; set; }
+        string ExpireYear { get; set; }
         Guid Id { get; set; }
         UserEntity User { get; set; }
         string UserId { get; set; }

@@ -7,8 +7,8 @@ namespace Backend.Models.Users.Dtos
         public Guid CreditCardId { get; set; }
         public string CardName { get; set; } = null!;
         public string CardNumber { get; set; } = null!;
-        public int ExpireMonth { get; set; }
-        public int ExpireYear { get; set; }
-        public int CvvCode { get; set; }
+        public string ExpireMonth { get; set; } = null!;
+        public string ExpireYear { get; set; } = null!;
+        public string CvvCode { get; set; } = null!;
     }
 }
