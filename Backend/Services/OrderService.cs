@@ -16,17 +16,17 @@ namespace Backend.Services
             _orderRepo = orderRepo;
         }
 
-        public async Task<IActionResult> GetAllOrders()
+        public virtual async Task<IActionResult> GetAllOrders()
         {
             return await _orderRepo.GetAllOrders();
         }
 
-        public async Task<IActionResult> GetOrder(string email)
+        public virtual async Task<IActionResult> GetOrder(string email)
         {
             return await _orderRepo.GetOrder(email);
         }
 
-        public async Task<IActionResult> CreateOrder(OrderModel order)
+        public virtual async Task<IActionResult> CreateOrder(OrderModel order)
         {
             return await _orderRepo.CreateOrder(order);
         }

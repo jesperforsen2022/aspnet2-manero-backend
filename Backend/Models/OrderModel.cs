@@ -9,6 +9,7 @@ namespace Backend.Models
         public decimal Price { get; set; }
         public DateTime? Date { get; set; }
         public OrderUserProfileModel? Profile { get; set; }
+        public OrderAddressModel? Address { get; set; }
         public List<OrderProductModel>? Products { get; set; } = new List<OrderProductModel>();
         public string? OrderStatus { get; set; }
         public string? PaymentMethod { get; set; }

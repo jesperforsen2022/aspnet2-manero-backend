@@ -9,6 +9,7 @@ namespace Backend.Models.Entities
         public decimal Price { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public OrderUserProfileModel Profile { get; set; } = null!;
+        public OrderAddressModel Address { get; set; } = null!;
         public List<OrderProductModel> Products { get; set; } = new List<OrderProductModel>();
         public string OrderStatus { get; set; } = "Order is placed";
         public string PaymentMethod { get; set; } = null!;
@@ -23,6 +24,7 @@ namespace Backend.Models.Entities
                 Price = entity.Price,
                 Date = entity.Date,
                 Profile = entity.Profile,
+                Address = entity.Address,
                 Products = entity.Products,
                 OrderStatus = entity.OrderStatus,
                 PaymentMethod = entity.PaymentMethod,
