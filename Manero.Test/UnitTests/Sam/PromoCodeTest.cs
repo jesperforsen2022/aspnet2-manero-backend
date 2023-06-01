@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Manero.Test.PromoCodeUnitTest
+namespace Manero.Test.UnitTests.Sam
 {
     public class PromoCodeTest
     {
