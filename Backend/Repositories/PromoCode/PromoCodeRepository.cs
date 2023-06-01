@@ -25,6 +25,7 @@ namespace Backend.Repositories.PromoCode
             return null!;
         }
 
+
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _nosql.Set<TEntity>().ToListAsync();
