@@ -20,13 +20,24 @@ namespace Backend.Services
             {
                 if (pCSchema != null)
                 {
-                    return await _pCRepo.AddAsync(pCSchema);
-                }
+                    var promoCodeEntity = new PromoCodeEntity
+                    {
+                        Name = pCSchema.Name,
+                        Discount = pCSchema.Discount,
+                        ExpiryDate = pCSchema.ExpiryDate
+                    };
 
+                    return await _pCRepo.AddAsync(promoCodeEntity);
+                }
             }
-            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
             return null!;
         }
+
 
         public async Task<IEnumerable<PromoCodeEntity>> GetAllAsync()
         {
