@@ -11,13 +11,6 @@ namespace Manero.Test.UnitTests.Fadi
 {
     public class RatingStarService_Tests
     {
-        private Mock<RatingStarService> _ratingStarServiceMock;
-
-        public RatingStarService_Tests()
-        {
-            _ratingStarServiceMock = new Mock<RatingStarService>();
-        }
-
         [Fact]
         public void AverageRatingStar_Should_Return_Correct_Average()
         {
@@ -35,10 +28,3 @@ namespace Manero.Test.UnitTests.Fadi
       
     }
 }
-//private RatingStarService _ratingStarService;
-//private Mock<RatingStarService> _ratingStarServiceMock;
-
-//public RatingStarService_Tests()
-//{
-//    _ratingStarServiceMock = new Mock<RatingStarService>();
-//}
