@@ -16,6 +16,7 @@ namespace Backend.Controllers
             _reviewService = reviewService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var list = await _reviewService.GetAllAsync();
@@ -23,6 +24,7 @@ namespace Backend.Controllers
             return Ok(list);
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreateReview(ReviewSchema reviewSchema)
         {
 
@@ -31,6 +33,7 @@ namespace Backend.Controllers
             return Ok(review);
         }
 
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var review = await _reviewService.DeleteAsync(id);
