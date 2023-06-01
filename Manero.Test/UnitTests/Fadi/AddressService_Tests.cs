@@ -19,7 +19,6 @@ namespace Manero.Test.UnitTests.Fadi
         private readonly Mock<IUserAddressRepository> _userAddressRepoMock;
         private readonly AddressService _addressService;
 
-
         public AddressService_Tests()
         {
             _addressRepoMock = new Mock<IAddressRepository>();
@@ -45,6 +44,5 @@ namespace Manero.Test.UnitTests.Fadi
             _addressRepoMock.Verify(x => x.AddAsync(It.IsAny<AddressEntity>()), Times.Never);
             _userAddressRepoMock.Verify(x => x.AddAsync(It.IsAny<UserAddressEntity>()), Times.Never);
         }
-
     }
 }
