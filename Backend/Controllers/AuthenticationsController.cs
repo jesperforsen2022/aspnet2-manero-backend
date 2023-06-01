@@ -71,9 +71,9 @@ namespace Backend.Controllers
                     {
                         return Ok(result);
                     }
-                    
+                    return Unauthorized("Incorrect password");
                 }
-                return Unauthorized("Incorrect email or password");
+                return Unauthorized("User does not exist");
             }
             return Unauthorized("Incorrect email or password");
         }
