@@ -1,9 +1,10 @@
-﻿using Backend.Models.Dtos;
+﻿using Backend.Interfaces;
+using Backend.Models.Dtos;
 using Backend.Models.Entities;
 
 namespace Backend.Models
 {
-    public class OrderModel
+    public class OrderModel : IOrderModel
     {
         public Guid Id { get; set; }
         public decimal Price { get; set; }

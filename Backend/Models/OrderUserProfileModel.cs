@@ -2,7 +2,7 @@
 
 namespace Backend.Models
 {
-    public class OrderUserProfileModel
+    public class OrderUserProfileModel : IOrderUserProfileModel
     {
         public string? Email { get; set; }
         public string? Name { get; set; }

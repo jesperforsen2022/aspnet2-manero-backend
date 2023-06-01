@@ -5,10 +5,11 @@ using Backend.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata.Ecma335;
 using Backend.Services;
+using Backend.Interfaces;
 
 namespace Backend.Repositories
 {
-    public class OrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly NoSqlContext _nosql;
 

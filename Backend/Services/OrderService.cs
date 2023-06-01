@@ -4,14 +4,15 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Repositories;
+using Backend.Interfaces;
 
 namespace Backend.Services
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
-        private readonly OrderRepository _orderRepo;
+        private readonly IOrderRepository _orderRepo;
 
-        public OrderService(OrderRepository orderRepo)
+        public OrderService(IOrderRepository orderRepo)
         {
             _orderRepo = orderRepo;
         }
