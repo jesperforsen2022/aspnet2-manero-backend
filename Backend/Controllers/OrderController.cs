@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Services;
+using Backend.Interfaces;
 
 namespace Backend.Controllers
 {
@@ -12,9 +13,9 @@ namespace Backend.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly OrderService _orderService;
+        private readonly IOrderService _orderService;
 
-        public OrderController(OrderService orderService)
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
