@@ -2,10 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Azure.Cosmos.Linq;
 using Backend.Services;
+using Backend.Interfaces;
 
 namespace Backend.Models.Entities
 {
-    public class ProductEntity
+    public class ProductEntity : IProductEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = null!;
